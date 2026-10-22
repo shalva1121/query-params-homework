@@ -1,0 +1,21 @@
+<a routerLink="/" class="back">← სასტუმროებზე დაბრუნება</a>
+
+<h1>ოთახები<span *ngIf="hotelName()"> — {{ hotelName() }}</span></h1>
+
+<p *ngIf="loading()">იტვირთება...</p>
+<p *ngIf="error()" class="error">{{ error() }}</p>
+<p *ngIf="!loading() && !error() && rooms().length === 0">ოთახები ვერ მოიძებნა.</p>
+
+<div class="grid">
+  <article class="card" *ngFor="let room of rooms()">
+    <img *ngIf="imageOf(room)" [src]="imageOf(room)" [alt]="room.name" />
+    <div class="body">
+      <h2>{{ room.name }}</h2>
+      <p *ngIf="room.maximumGuests">👥 მაქს. სტუმარი: {{ room.maximumGuests }}</p>
+      <p class="price" *ngIf="room.pricePerNight != null">{{ room.pricePerNight }} ₾ / ღამე</p>
+      <span class="badge" *ngIf="room.available !== undefined" [class.off]="!room.available">
+        {{ room.available ? 'თავისუფალია' : 'დაკავებულია' }}
+      </span>
+    </div>
+  </article>
+</div>

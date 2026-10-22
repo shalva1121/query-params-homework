@@ -1,0 +1,26 @@
+<h1>სასტუმროები</h1>
+
+<p *ngIf="loading()">იტვირთება...</p>
+<p *ngIf="error()" class="error">{{ error() }}</p>
+
+<div class="grid">
+  <article class="card" *ngFor="let hotel of hotels()">
+    <img *ngIf="imageOf(hotel)" [src]="imageOf(hotel)" [alt]="hotel.name" />
+    <div class="body">
+      <h2>{{ hotel.name }}</h2>
+      <p class="meta" *ngIf="hotel.city || hotel.address">
+        📍 {{ hotel.city }}<span *ngIf="hotel.city && hotel.address">, </span>{{ hotel.address }}
+      </p>
+      <p class="desc" *ngIf="hotel.description">{{ hotel.description }}</p>
+
+      <!-- query params: /rooms?hotelId=1&hotelName=... -->
+      <a
+        class="btn"
+        routerLink="/rooms"
+        [queryParams]="{ hotelId: hotel.id, hotelName: hotel.name }"
+      >
+        ოთახების ნახვა
+      </a>
+    </div>
+  </article>
+</div>
